@@ -55,6 +55,7 @@ def coord1_volume(thresholded_image):
 def sample2d(coord0_volume, coord1_volume, image):
     xs = np.indices((np.max(coord0_volume).astype(int),
                      np.max(coord1_volume).astype(int)))
+    xs_r = xs.reshape((2, -1)).T
     points = np.stack((coord0_volume.ravel(), coord1_volume.ravel()), axis=1)
-    r = interpolate.griddata(points, image.ravel(), xs)
-    return r
+    r = interpolate.griddata(points, image.ravel(), xs_r)
+    return r.reshape(xs.shape[1:])
