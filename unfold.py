@@ -44,7 +44,7 @@ def source_id_volume(image, idxs, path):
 def coord0_volume(sources, idxs):
     differences = np.diff(idxs, axis=0)
     distances_raw = np.sqrt(np.sum(differences ** 2, axis=1))
-    distances = np.concatenate(([0, 0], distances_raw))
+    distances = np.concatenate(([0, 0], np.cumsum(distances_raw)))
     return distances[sources]
 
 
